@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   allowedDevOrigins: [
     'https://*.replit.dev',
+    'https://*.pike.replit.dev',
   ],
 };
 

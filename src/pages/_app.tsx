@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 import { Roboto } from 'next/font/google';
 import clsx from 'clsx';
-import Header from 'root/components/Header';
 
 import 'root/assets/global.css';
 
@@ -15,11 +14,8 @@ const robotoFont = Roboto({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <div className={clsx(robotoFont.className, robotoFont.variable)}>
-      <Header />
-      <main>
-        <Component {...pageProps} />
-      </main>
-    </div>
+    <main className={clsx(robotoFont.className, robotoFont.variable)}>
+      <Component {...pageProps} />
+    </main>
   );
 }

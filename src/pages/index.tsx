@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 import { apiRequest } from 'root/utils/apiRequest';
 import { homeSlugs, populate, populateDeep } from 'root/constants/config';
+import { HomePageProps, ApiResponse, HeaderData, FooterData, PageData } from 'root/types/api';
 
 import styles from 'root/assets/Home.module.css';
 

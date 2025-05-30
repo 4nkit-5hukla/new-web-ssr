@@ -4,7 +4,13 @@ import type { InferGetStaticPropsType, GetServerSidePropsContext } from 'next';
 import { populate, populateDeep } from 'root/constants/config';
 import { apiRequest } from 'root/utils/apiRequest';
 
-type DynamicPageProps = InferGetStaticPropsType<typeof getServerSideProps>;
+import { FC } from 'react';
+import type { InferGetStaticPropsType, GetServerSidePropsContext } from 'next';
+import { apiRequest } from 'root/utils/apiRequest';
+import { populate, populateDeep } from 'root/constants/config';
+import { DynamicPageProps, ApiResponse, HeaderData, FooterData, PageData } from 'root/types/api';
+
+type Props = InferGetStaticPropsType<typeof getServerSideProps>;
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
@@ -18,11 +24,11 @@ export const getServerSideProps = async (
   const slug = params ? params.slug : undefined;
 
   try {
-    const resHeader = await apiRequest(`/main-nav`, 'GET', populateDeep);
+    const resHeader: ApiResponse<HeaderData> = await apiRequest(`/main-nav`, 'GET', populateDeep);
     const header = resHeader.data;
-    const resFooter = await apiRequest(`/footer-top-menu`, 'GET', populateDeep);
+    const resFooter: ApiResponse<FooterData> = await apiRequest(`/footer-top-menu`, 'GET', populateDeep);
     const footer = resFooter.data;
-    const result = await apiRequest(`/pages`, 'GET', {
+    const result: ApiResponse<PageData[]> = await apiRequest(`/pages`, 'GET', {
       params: {
         filters: { slug: { $eq: slug } },
         pagination: { pageSize: 1 },
@@ -53,7 +59,7 @@ export const getServerSideProps = async (
   }
 };
 
-const DynamicPage: FC<DynamicPageProps> = (data) => {
+const DynamicPage: FC<Props> = (data) => {
   return (
     <div style={{ fontFamily: 'var(--roboto)' }}>
       <pre>{JSON.stringify(data, null, 2)}</pre>

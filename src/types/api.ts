@@ -1,42 +1,4 @@
 
-// Enums for better type safety
-export enum ComponentType {
-  TEXT = 'shared.text',
-  IMAGE = 'shared.image',
-  BUTTON = 'shared.button',
-  HERO = 'sections.hero',
-  FEATURES = 'sections.features',
-}
-
-export enum TextAlign {
-  LEFT = 'left',
-  CENTER = 'center',
-  RIGHT = 'right',
-}
-
-export enum ButtonVariant {
-  PRIMARY = 'primary',
-  SECONDARY = 'secondary',
-  OUTLINE = 'outline',
-}
-
-export enum ButtonTarget {
-  BLANK = '_blank',
-  SELF = '_self',
-}
-
-export enum SocialNetwork {
-  FACEBOOK = 'Facebook',
-  TWITTER = 'Twitter',
-}
-
-export enum Locale {
-  EN = 'en',
-  ES = 'es',
-  FR = 'fr',
-  DE = 'de',
-}
-
 // Base types for common data structures
 export interface ApiResponse<T = any> {
   data: T;
@@ -138,17 +100,17 @@ export interface MediaData {
 // Component types for dynamic content
 export interface ComponentBase {
   id: number;
-  __component: ComponentType;
+  __component: string;
 }
 
 export interface TextComponent extends ComponentBase {
-  __component: ComponentType.TEXT;
+  __component: 'shared.text';
   content: string;
-  align?: TextAlign;
+  align?: 'left' | 'center' | 'right';
 }
 
 export interface ImageComponent extends ComponentBase {
-  __component: ComponentType.IMAGE;
+  __component: 'shared.image';
   image: {
     data: MediaData;
   };
@@ -157,15 +119,15 @@ export interface ImageComponent extends ComponentBase {
 }
 
 export interface ButtonComponent extends ComponentBase {
-  __component: ComponentType.BUTTON;
+  __component: 'shared.button';
   text: string;
   url: string;
-  variant?: ButtonVariant;
-  target?: ButtonTarget;
+  variant?: 'primary' | 'secondary' | 'outline';
+  target?: '_blank' | '_self';
 }
 
 export interface HeroComponent extends ComponentBase {
-  __component: ComponentType.HERO;
+  __component: 'sections.hero';
   title: string;
   subtitle?: string;
   description?: string;
@@ -176,7 +138,7 @@ export interface HeroComponent extends ComponentBase {
 }
 
 export interface FeatureComponent extends ComponentBase {
-  __component: ComponentType.FEATURES;
+  __component: 'sections.features';
   title: string;
   description?: string;
   features: Array<{
@@ -212,7 +174,7 @@ export interface SeoData {
   };
   metaSocial?: Array<{
     id: number;
-    socialNetwork: SocialNetwork;
+    socialNetwork: 'Facebook' | 'Twitter';
     title: string;
     description: string;
     image?: {
@@ -232,7 +194,7 @@ export interface PageData {
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
-    locale: Locale;
+    locale: string;
     seo?: SeoData;
     featuredImage?: {
       data: MediaData;
@@ -244,7 +206,7 @@ export interface PageData {
         attributes: {
           title: string;
           slug: string;
-          locale: Locale;
+          locale: string;
         };
       }>;
     };
